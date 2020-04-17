@@ -79,21 +79,6 @@
                         </execution>
                     </executions>
                 </plugin>
-                <!--该插件用于将scala代码编译成class文件-->
-                <plugin>
-                    <groupId>net.alchim31.maven</groupId>
-                    <artifactId>scala-maven-plugin</artifactId>
-                    <version>3.2.2</version>
-                    <executions>
-                        <!--绑定到maven的编译阶段-->
-                        <execution>
-                            <goals>
-                                <goal>compile</goal>
-                                <goal>testCompile</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>

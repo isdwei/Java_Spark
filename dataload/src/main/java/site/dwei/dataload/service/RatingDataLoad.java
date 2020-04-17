@@ -1,8 +1,11 @@
-package site.dwei.dataload.bean;
+package site.dwei.dataload.service;
 
 import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
+import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.sql.SparkSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import site.dwei.common.domain.Rating;
 
 /**
@@ -10,12 +13,19 @@ import site.dwei.common.domain.Rating;
  * @date 2020-04-16
  * @description
  */
+@Service("ratingDataLoad")
 public class RatingDataLoad extends FileDataLoad {
 
 
-    public RatingDataLoad(String path) {
-        super(path);
-    }
+    @Autowired
+    private JavaSparkContext sc;
+
+    @Autowired
+    private SparkSession spark;
+
+    @Value("E:\\JavaWork\\Java_Spark\\dataload\\src\\main\\resources\\ratings.csv")
+    private String path;
+
 
     @Override
     public void loadFile(String path) {

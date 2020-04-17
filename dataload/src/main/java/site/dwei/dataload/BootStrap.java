@@ -1,7 +1,10 @@
 package site.dwei.dataload;
 
-import site.dwei.dataload.bean.FileDataLoad;
-import site.dwei.dataload.factory.DataLoadFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import site.dwei.common.bean.DataLoad;
+import site.dwei.dataload.service.FileDataLoad;
+import site.dwei.dataload.service.MovieDataLoad;
 
 /**
  * @author weitu
@@ -10,16 +13,19 @@ import site.dwei.dataload.factory.DataLoadFactory;
  */
 public class BootStrap {
 
-    private static String  MOVIE_DATA_PATH="E:\\JavaWork\\Java_Spark\\dataload\\src\\main\\resources\\movies.csv";
-    private static String  RATING_DATA_PATH="E:\\JavaWork\\Java_Spark\\dataload\\src\\main\\resources\\ratings.csv";
-    private static String  TAG_DATA_PATH="E:\\JavaWork\\Java_Spark\\dataload\\src\\main\\resources\\tags.csv";
-
+    /**
+     * 运行时，每个数据文件被切分为两块是为什么？
+     * @param args
+     */
     public static void main(String[] args) {
-        FileDataLoad movieDataLoad = DataLoadFactory.getMovieDataLoad(MOVIE_DATA_PATH);
+
+        ApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
+
+        DataLoad movieDataLoad = ac.getBean("movieDataLoad", DataLoad.class);
         movieDataLoad.storeData();
-        FileDataLoad ratingDataLoad = DataLoadFactory.getRatingDataLoad(RATING_DATA_PATH);
+        DataLoad ratingDataLoad = ac.getBean("ratingDataLoad", DataLoad.class);
         ratingDataLoad.storeData();
-        FileDataLoad tagDataLoad = DataLoadFactory.getTagDataLoad(TAG_DATA_PATH);
+        DataLoad tagDataLoad = ac.getBean("tagDataLoad", DataLoad.class);
         tagDataLoad.storeData();
     }
 }
